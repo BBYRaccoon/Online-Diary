@@ -4,11 +4,11 @@ import useImage from 'use-image';
 import Toolkits from "components/partials/Toolkits/Toolkits";
 import { stickersData } from "data/Images";
 import { Sticker } from "components/partials/ToolComponents/Sticker/Sticker";
+import CustomizeCanvas from "components/partials/ToolComponents/CustomizeStickerCanvas/CustomizeCanvas";
 
 function Designer() {
     const toolTypes = { sticker: 'sticker', customizedSticker: 'customize', text: 'text'};
     const [image] = useImage("/Frame 1.png");
-
 
     const addStickerToCanvas = ({ src, width, height, x, y}) => {
       console.log(src, width, x, y);
@@ -48,6 +48,7 @@ function Designer() {
     const [stickers, setStickers] = useState([]);
     const [currentTool, setCurrentTool] = useState(toolTypes.sticker);
     const [toolConfig, setToolConfig] = useState(defaultToolConfig);
+    const [openModal, setOpenModal] = useState(false);
 
     const [textInput, setTextInput] = useState({
       isVisible: false,
@@ -57,6 +58,16 @@ function Designer() {
     });
     const [dragging, setDragging] = useState(false);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+    const handleCustomizeSelect = () => {
+      setCurrentTool(toolTypes.customizedSticker);
+      setToolConfig(toolConfigs[currentTool]);
+      setOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+      setOpenModal(false);
+    }
 
     const startDrag = (e) => {
       setDragging(true);
@@ -199,12 +210,20 @@ function Designer() {
                 key={`tool-${index}`} 
                 className="tool-button"
                 onClick={() => {
-                k === 'text' ? handleTextToolSelect() : setCurrentTool(toolTypes[k])}
-              }>
+                  if (toolTypes[k] === 'customize') {
+                    handleCustomizeSelect();
+                  } else {
+                    setCurrentTool(toolTypes[k]);
+                    setToolConfig(toolConfigs[currentTool]);
+                  }
+              }}>
                 {toolTypes[k]}
               </button>
             ))}
           </div>
+          {
+            openModal && <CustomizeCanvas open={openModal} handleClose={handleCloseModal} />
+          }
           <div className="toolkits-container">
             <Toolkits {...toolConfig}></Toolkits>
           </div>
