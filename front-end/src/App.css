@@ -1,11 +1,24 @@
+
+/* 添加到你的 App.css 文件中 */
+.App {
+    text-align: center;
+    background-image: url('/Users/joyxu/WebStormProjects/Online-Diary/front-end/public/background/3.png'); /* 替换为你的图片路径 */
+    background-color: #fff; /* 作为背景图片加载前的默认颜色，或者如果图片是透明的 */
+    background-size: cover; /* 或者可以是 contain，根据你想要的效果 */
+    background-repeat: no-repeat; /* 如果你不想让图片重复 */
+    background-attachment: fixed; /* 如果你想要背景图片固定在位置上 */
+    background-position: center center; /* 调整图片以确保它居中显示 */
+
+}
+
 .App-header {
-    background: linear-gradient(135deg, #E2B6CF 0%, #f6b8c1 100%); /* Soft pink gradient */
+    background: linear-gradient(135deg, #0D324D 0%, #f6b8c1 100%); /* Soft pink gradient */
     min-height: 10vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(12px + 2vmin);
+    font-size: calc(16px + 2vmin);
     color: white;
     padding: 20px;
     font-family: 'Indie Flower', cursive; /* Example font from Google Fonts */
@@ -13,15 +26,15 @@
 }
 .designer-container h2 {
     font-size: 18px;
-    color: #555; /* Example color */
+    color: #fff; /* Example color */
     font-weight: 300;
     text-align: center;
     margin-bottom: 20px;
-    background-color: #F6EFEE; /* Soft gray background */
+    background-color: #0A324E; /* Soft gray background */
     /* Add more styling rules as needed */
 }
 .toolkit-container {
-    background-color: #DBEEDB; /* 乳白色调的背景颜色 */
+    background-color:#5D4063; /* 乳白色调的背景颜色 */
     padding: 10px; /* 在内容周围添加一些填充 */
     display: flex; /* 使用弹性盒子对齐项目 */
     align-items: center; /* 垂直居中项目 */
@@ -29,12 +42,13 @@
     gap: 10px; /* 在项目之间添加空间 */
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
 /* 更新后的 toolkit-text 样式 */
 .toolkit-text {
     font-family: 'Dancing Script', cursive; /* 使用一个艺术字体 */
     font-size: 1.2rem; /* 调整字体大小 */
-    color: #333; /* 深灰色文本 */
+    color: #fff; /* 深灰色文本 */
     margin: 0 20px; /* 在文本右侧添加一些外边距 */
     text-shadow: 2px 2px 2px rgba(0,0,0,0.1); /* 添加文本阴影 */
 }
@@ -75,7 +89,7 @@
     align-items: center;
     gap: 10px; /* 按钮之间的间隙 */
     padding: 10px;
-    background-color: #F2FCF2; /* 乳白色背景 */
+    background-color: #BBA3BF; /* 乳白色背景 */
 }
 
 .tool-selector .tool-button {

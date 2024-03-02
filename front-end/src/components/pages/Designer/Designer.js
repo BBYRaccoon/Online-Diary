@@ -62,7 +62,7 @@ function Designer() {
               <h2>Start your own journey.</h2> {/* Wrap the text in a <h2> tag for styling */}
             <Stage width={1800} height={1000} onClick={handleCanvasClick}>
                 <Layer>
-                    <KonvaImage image={image} id="bg-image" x={90} />
+                    <KonvaImage image={image} id="bg-image" x={300} />
                     {stickers.map((sticker, index) => {
                       return (
                         <Sticker 
