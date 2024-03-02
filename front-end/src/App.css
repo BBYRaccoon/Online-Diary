@@ -53,7 +53,7 @@
     text-shadow: 2px 2px 2px rgba(0,0,0,0.1); /* 添加文本阴影 */
 }
 
-/* 更新后的 toolkit-button 样式 */""
+/* 更新后的 toolkit-button 样式 */
 .toolkit-button {
     border: none; /* 移除边框 */
     background: none; /* 移除默认背景 */
@@ -115,6 +115,19 @@
     /* 鼠标点击时按钮的样式 */
     transform: translateY(1px); /* 轻微下移 */
 }
+
+.modal-style {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400;
+  background-color: white;
+  border: 2px solid #000;
+  box-shadow: 24;
+  padding: 10px;
+}
+
 /* .App {
   text-align: center;
 }
