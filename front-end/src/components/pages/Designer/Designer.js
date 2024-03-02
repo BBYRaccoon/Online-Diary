@@ -39,10 +39,6 @@ function Designer() {
     const [stickers, setSticers] = useState([]);
     const [currentTool, setCurrentTool] = useState(toolTypes.sticker);
     const [toolConfig, setToolConfig] = useState(defaultToolConfig);
-    
-    useEffect(() => {
-      setToolConfig(toolConfigs[currentTool]);
-    }, [currentTool, toolConfigs]);
 
     const resetAll = useCallback(() => {
       stickers.forEach((sticker) => {
@@ -92,6 +88,7 @@ function Designer() {
             {Object.keys(toolTypes).map((k, index) => (
               <button key={`tool-${index}`} onClick={() => {
                 setCurrentTool(toolTypes[k]);
+                setToolConfig(toolConfigs[currentTool]);
               }}>{toolTypes[k]}</button>
             ))}
           </div>
