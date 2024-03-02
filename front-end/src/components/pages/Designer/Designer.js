@@ -10,20 +10,29 @@ function Designer() {
     const toolTypes = { sticker: 'sticker', customizedSticker: 'customize', text: 'text'};
     const [image] = useImage("/Frame 1.png");
 
-    const addStickerToCanvas = ({ src, width, height, x, y}) => {
-      console.log(src, width, x, y);
+
+    const [textData, setTextData] = useState([]);
+
+    const addStickerToCanvas = (object) => {
       setStickers((currentStickers) => [
         ...currentStickers,
-        { width, height, x, y, src, resetButtonRef: createRef()}
+        { ...object, resetButtonRef: createRef()}
       ]);
     };
 
-    const addTextToCanvas = (text, x, y) => {
-      setStickers((currentStickers) => [
-        ...currentStickers,
-        { type: 'text', text, x, y, resetButtonRef: createRef()},
-      ]);
-    };
+    const handleAddText = (text) => {
+      setTextData((currentTexts) => [
+        ...currentTexts,
+        {
+          text: text,
+          isText: true,
+          width: 30,
+          height: 30,
+          x: 200,
+          y: 200
+        }
+      ])
+    }
     
     const defaultToolConfig = {
       objs: stickersData,
@@ -39,9 +48,9 @@ function Designer() {
         callBack: addStickerToCanvas
       },
       'text': {
-        objs: stickersData,
+        objs: textData,
         objType: toolTypes.text,
-        callBack: addTextToCanvas
+        callBack: addStickerToCanvas
       } 
     }
 
@@ -93,8 +102,9 @@ function Designer() {
 
     const handleKeyPress = (e) => {
       if (e.key === 'Enter') {
-        addTextToCanvas(textInput.value, textInput.x, textInput.y);
+        // addTextToCanvas(textInput.value, textInput.x, textInput.y);
         setTextInput({ ...textInput, isVisible: false, value: '' });
+        handleAddText(textInput.value);
       } else if (e.key === 'Escape') {
         setTextInput({ ...textInput, isVisible: false, value: '' });
       }
@@ -141,22 +151,22 @@ function Designer() {
                 <Layer>
                     <KonvaImage image={image} id="bg-image" x={300} />
                     {stickers.map((sticker, index) => {
-                      if (sticker.type === 'text') {
-                        return (
-                          <Text
-                            key={index}
-                            text={sticker.text}
-                            x={sticker.x}
-                            y={sticker.y}
-                            draggable
-                            onDragEnd={(e) => {
-                              const updatedStickers = stickers.slice();
-                              updatedStickers[index] = { ...updatedStickers[index], x: e.target.x(), y: e.target.y() };
-                              setStickers(updatedStickers);
-                            }}
-                          />
-                        );
-                      }
+                      // if (sticker.type === 'text') {
+                      //   return (
+                      //     <Text
+                      //       key={index}
+                      //       text={sticker.text}
+                      //       x={sticker.x}
+                      //       y={sticker.y}
+                      //       draggable
+                      //       onDragEnd={(e) => {
+                      //         const updatedStickers = stickers.slice();
+                      //         updatedStickers[index] = { ...updatedStickers[index], x: e.target.x(), y: e.target.y() };
+                      //         setStickers(updatedStickers);
+                      //       }}
+                      //     />
+                      //   );
+                      // }
                       return (
                         <Sticker 
                           onDelete={() => {

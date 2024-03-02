@@ -1,9 +1,10 @@
 import useImage from "use-image";
 import React, { useState, useEffect, useRef } from "react";
-import { Image as KonvaImage, Group, Transformer } from "react-konva";
+import { Image as KonvaImage, Group, Transformer, Rect, Text } from "react-konva";
 import { useHoverDirty } from "react-use";
 
 export const Sticker = ({ image, onDelete, onDragEnd, onChange }) => {
+  const isText = (image.isText ? image.isText: false);
   const imageRef = useRef(null);
   const transformRef = useRef();
   const isHovered = useHoverDirty(imageRef);
@@ -26,6 +27,37 @@ export const Sticker = ({ image, onDelete, onDragEnd, onChange }) => {
       setIsSelected(false);
     }
   }
+
+  const onTransformEndcallback = (e) => {
+    const node = imageRef.current;
+    const scalerX = node.scaleX();
+    const scalerY = node.scaleY();
+
+    node.scaleX(1);
+    node.scaleY(1);
+
+    // if (isText) {
+
+    // } else {
+    //   onChange({
+    //     ...image,
+    //     x: image.x,
+    //     y: image.y,
+    //     width: image.width * scalerX,
+    //     height: image.height * scalerY
+    //   });
+    // }
+    onChange({
+      ...image,
+      x: image.x,
+      y: image.y,
+      width: image.width * scalerX,
+      height: image.height * scalerY,
+      rotation: node.rotation()
+    });
+    
+    setIsSelected(false);
+  };
 
   useEffect(() => {
     if (isHovered) {
@@ -53,30 +85,25 @@ export const Sticker = ({ image, onDelete, onDragEnd, onChange }) => {
       }}
       onMouseDown={checkDeselect}
     >
-      <KonvaImage
+      {!isText && (<KonvaImage
         ref={imageRef}
         width={stickerWidth}
         height={stickerHeight}
         image={stickerImage}
         onClick={()=>setIsSelected(true)}
-        onTransformEnd={(e) => {
-          const node = imageRef.current;
-          const scalerX = node.scaleX();
-          const scalerY = node.scaleY();
-
-          node.scaleX(1);
-          node.scaleY(1);
-          
-          onChange({
-            ...image,
-            x: image.x,
-            y: image.y,
-            width: image.width * scalerX,
-            height: image.height * scalerY
-          });
-          setIsSelected(false);
-        }}
-      />
+        onTransformEnd={onTransformEndcallback}
+      />)}
+      {isText && (
+        <> 
+          <Rect
+            ref={imageRef}
+            width={stickerWidth}
+            height={stickerHeight}
+            onClick={()=>setIsSelected(true)}
+            onTransformEnd={onTransformEndcallback}/>
+          <Text text={image.text} align="center" rotation={image.rotation}></Text>
+        </>
+      )}
       {showDeleteButton && !isDragging && (
         <KonvaImage
           onClick={onDelete}

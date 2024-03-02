@@ -6,7 +6,7 @@ const stickersData = stickerFilePath.map(filePath => {
     const fileName = filePath.replace(/^\.\/|\.(png|jpg|jpeg|gif)/ig, '');
     const fullPath = stickerContext(filePath);
     return {
-        url: fullPath,
+        src: fullPath,
         alt: fileName + ' logo',
         width: 30,
         height: 30
