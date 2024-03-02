@@ -1,10 +1,11 @@
 import useImage from "use-image";
 import React, { useState, useEffect, useRef } from "react";
-import { Image as KonvaImage, Group } from "react-konva";
+import { Image as KonvaImage, Group, Transformer } from "react-konva";
 import { useHoverDirty } from "react-use";
 
-export const Sticker = ({ image, onDelete, onDragEnd }) => {
+export const Sticker = ({ image, onDelete, onDragEnd, onChange }) => {
   const imageRef = useRef(null);
+  const transformRef = useRef();
   const isHovered = useHoverDirty(imageRef);
   const [stickerImage] = useImage(image.src);
   const [deleteImage] = useImage("./shared/delete.png");
@@ -34,7 +35,11 @@ export const Sticker = ({ image, onDelete, onDragEnd }) => {
         setShowDeleteButton(false);
       }, 2000);
     }
-  }, [isHovered]);
+    if(isSelected) {
+      transformRef.current.nodes([imageRef.current]);
+      transformRef.current.getLayer().batchDraw();
+    }
+  }, [isHovered, isSelected]);
 
   return (
     <Group
@@ -54,6 +59,22 @@ export const Sticker = ({ image, onDelete, onDragEnd }) => {
         height={stickerHeight}
         image={stickerImage}
         onClick={()=>setIsSelected(true)}
+        onTransformEnd={(e) => {
+          const node = imageRef.current;
+          const scalerX = node.scaleX();
+          const scalerY = node.scaleY();
+
+          node.scaleX(1);
+          node.scaleY(1);
+          
+          onChange({
+            ...image,
+            x: image.x,
+            y: image.y,
+            width: image.width * scalerX,
+            height: image.height * scalerY
+          })
+        }}
       />
       {showDeleteButton && !isDragging && (
         <KonvaImage
@@ -63,6 +84,9 @@ export const Sticker = ({ image, onDelete, onDragEnd }) => {
           height={25}
           offsetX={-stickerWidth / 2 - 20}
         />
+      )}
+      {isSelected && (
+        <Transformer ref={transformRef}/>
       )}
     </Group>
   );

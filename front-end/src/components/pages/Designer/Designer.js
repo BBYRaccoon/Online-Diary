@@ -77,6 +77,12 @@ function Designer() {
                           }}
                           key={index}
                           image={sticker}
+                          onChange={(newAttrs) => {
+                            const newStickers = [...stickers];
+                            newStickers[index] = newAttrs;
+                            setSticers(newStickers);
+                            console.log("changes occur");
+                          }}
                         />
                       )
                     })}
