@@ -1,44 +1,30 @@
-// import React, { useRef } from "react";
-
-// export function Sticker({ sticker, onDelete, onDragEnd }) {
-//     const stickerRef = useRef(null);
-//     const isHovered = useHover
-//     return (
-//         <>
-//           <button key={alt}>
-//             <img src={url} alt={alt} width={width} height={height}/>
-//           </button>
-//         </>
-//     );
-// }
-
-// export default Sticker;
-
 import useImage from "use-image";
 import React, { useState, useEffect, useRef } from "react";
 import { Image as KonvaImage, Group } from "react-konva";
-import { useHoverDirty, useLongPress } from "react-use";
+import { useHoverDirty } from "react-use";
 
 export const Sticker = ({ image, onDelete, onDragEnd }) => {
   const imageRef = useRef(null);
   const isHovered = useHoverDirty(imageRef);
   const [stickerImage] = useImage(image.src);
-  const [deleteImage] = useImage("cancel.svg");
+  const [deleteImage] = useImage("./shared/delete.png");
   const [showDeleteButton, setShowDeleteButton] = useState(false);
-  const onLongPress = () => {
-    setShowDeleteButton(true);
-  };
-
+  
   image.resetButtonRef.current = () => {
     setShowDeleteButton(false);
   };
-  const longPressEvent = useLongPress(onLongPress, { delay: 200 });
-  const [isDragging, setIsDragging] = useState(false);
 
-  const stickerWidth = image.width;
-  const stickerHeight = stickerImage
-    ? (image.width * stickerImage.height) / stickerImage.width
-    : 0;
+  const [isDragging, setIsDragging] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
+
+  const stickerWidth = image.width * 5;
+  const stickerHeight = image.height * 5;
+
+  const checkDeselect = (e) => {
+    if (e.target === e.target.getStage()) {
+      setIsSelected(false);
+    }
+  }
 
   useEffect(() => {
     if (isHovered) {
@@ -60,17 +46,17 @@ export const Sticker = ({ image, onDelete, onDragEnd }) => {
         setIsDragging(false);
         onDragEnd(event);
       }}
+      onMouseDown={checkDeselect}
     >
       <KonvaImage
         ref={imageRef}
-        width={image.width}
+        width={stickerWidth}
         height={stickerHeight}
         image={stickerImage}
-        {...longPressEvent}
+        onClick={()=>setIsSelected(true)}
       />
       {showDeleteButton && !isDragging && (
         <KonvaImage
-          onTouchStart={onDelete}
           onClick={onDelete}
           image={deleteImage}
           width={25}

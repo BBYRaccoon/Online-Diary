@@ -1,4 +1,4 @@
-import React, { useState, createRef, useCallback, useEffect, useMemo } from "react";
+import React, { useState, createRef, useCallback } from "react";
 import { Image as KonvaImage, Layer, Stage } from 'react-konva';
 import useImage from 'use-image';
 import Toolkits from "components/partials/Toolkits/Toolkits";
@@ -9,10 +9,9 @@ function Designer() {
     const [image] = useImage("/diary_bg.png");
     const toolTypes = { sticker: 'sticker', customizedSticker: 'customize', text: 'text'};
     const addStickerToCanvas = ({ src, width, height, x, y}) => {
-      console.log(src, width, x, y);
       setSticers((currentStickers) => [
         ...currentStickers,
-        { width, x, y, src, resetButtonRef: createRef()}
+        { width, height, x, y, src, resetButtonRef: createRef()}
       ]);
     };
 
