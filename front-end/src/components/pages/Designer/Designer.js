@@ -1,4 +1,4 @@
-import React, { useState, createRef, useCallback } from "react";
+import React, { useState, createRef, useCallback, useEffect, useMemo } from "react";
 import { Image as KonvaImage, Layer, Stage } from 'react-konva';
 import useImage from 'use-image';
 import Toolkits from "components/partials/Toolkits/Toolkits";
@@ -7,8 +7,7 @@ import { Sticker } from "components/partials/ToolComponents/Sticker/Sticker";
 
 function Designer() {
     const [image] = useImage("/diary_bg.png");
-    const [stickers, setSticers] = useState([]);
-
+    const toolTypes = { sticker: 'sticker', customizedSticker: 'customize', text: 'text'};
     const addStickerToCanvas = ({ src, width, height, x, y}) => {
       console.log(src, width, x, y);
       setSticers((currentStickers) => [
@@ -16,6 +15,34 @@ function Designer() {
         { width, x, y, src, resetButtonRef: createRef()}
       ]);
     };
+
+    const defaultToolConfig = {
+      objs: stickersData,
+      objType: toolTypes.sticker,
+      callBack: addStickerToCanvas
+    }
+
+    const toolConfigs = {
+      'sticker': defaultToolConfig,
+      'customize': {
+        objs: stickersData,
+        objType: toolTypes.customizedSticker,
+        callBack: addStickerToCanvas
+      },
+      'text': {
+        objs: stickersData,
+        objType: toolTypes.text,
+        callBack: addStickerToCanvas
+      } 
+    }
+
+    const [stickers, setSticers] = useState([]);
+    const [currentTool, setCurrentTool] = useState(toolTypes.sticker);
+    const [toolConfig, setToolConfig] = useState(defaultToolConfig);
+    
+    useEffect(() => {
+      setToolConfig(toolConfigs[currentTool]);
+    }, [currentTool, toolConfigs]);
 
     const resetAll = useCallback(() => {
       stickers.forEach((sticker) => {
@@ -60,9 +87,17 @@ function Designer() {
                 </Layer>
             </Stage>
           </div>
+          <div className="tool-selector">
+            Tools Controller
+            {Object.keys(toolTypes).map((k, index) => (
+              <button key={`tool-${index}`} onClick={() => {
+                setCurrentTool(toolTypes[k]);
+              }}>{toolTypes[k]}</button>
+            ))}
+          </div>
           <div className="toolkits-container">
             Toolkits
-            <Toolkits objs={stickersData} objType={"imgButton"} callBack={addStickerToCanvas}></Toolkits>
+            <Toolkits {...toolConfig}></Toolkits>
           </div>
         </>
     );
