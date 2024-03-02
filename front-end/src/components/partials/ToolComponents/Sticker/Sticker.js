@@ -73,7 +73,8 @@ export const Sticker = ({ image, onDelete, onDragEnd, onChange }) => {
             y: image.y,
             width: image.width * scalerX,
             height: image.height * scalerY
-          })
+          });
+          setIsSelected(false);
         }}
       />
       {showDeleteButton && !isDragging && (
