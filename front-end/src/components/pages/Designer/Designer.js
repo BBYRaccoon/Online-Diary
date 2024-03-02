@@ -206,7 +206,6 @@ function Designer() {
             ))}
           </div>
           <div className="toolkits-container">
-            Toolkits
             <Toolkits {...toolConfig}></Toolkits>
           </div>
         </>
