@@ -212,6 +212,8 @@ function Designer() {
                 onClick={() => {
                   if (toolTypes[k] === 'customize') {
                     handleCustomizeSelect();
+                  } else if (toolTypes[k] === 'text') {
+                    handleTextToolSelect();
                   } else {
                     setCurrentTool(toolTypes[k]);
                     setToolConfig(toolConfigs[currentTool]);
