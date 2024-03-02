@@ -1,3 +1,106 @@
+.App-header {
+    background: linear-gradient(135deg, #E2B6CF 0%, #f6b8c1 100%); /* Soft pink gradient */
+    min-height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(12px + 2vmin);
+    color: white;
+    padding: 20px;
+    font-family: 'Indie Flower', cursive; /* Example font from Google Fonts */
+    text-shadow: 2px 2px 4px #000000;
+}
+.designer-container h2 {
+    font-size: 18px;
+    color: #555; /* Example color */
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #F6EFEE; /* Soft gray background */
+    /* Add more styling rules as needed */
+}
+.toolkit-container {
+    background-color: #DBEEDB; /* 乳白色调的背景颜色 */
+    padding: 10px; /* 在内容周围添加一些填充 */
+    display: flex; /* 使用弹性盒子对齐项目 */
+    align-items: center; /* 垂直居中项目 */
+    justify-content: center; /* 将项目居中对齐容器 */
+    gap: 10px; /* 在项目之间添加空间 */
+}
+
+
+/* 更新后的 toolkit-text 样式 */
+.toolkit-text {
+    font-family: 'Dancing Script', cursive; /* 使用一个艺术字体 */
+    font-size: 1.2rem; /* 调整字体大小 */
+    color: #333; /* 深灰色文本 */
+    margin: 0 20px; /* 在文本右侧添加一些外边距 */
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.1); /* 添加文本阴影 */
+}
+
+/* 更新后的 toolkit-button 样式 */
+.toolkit-button {
+    border: none; /* 移除边框 */
+    background: none; /* 移除默认背景 */
+    cursor: pointer; /* 悬停时更改光标为指针 */
+    padding: 5px; /* 增加可点击区域的填充 */
+    transition: all 0.2s ease; /* 平滑过渡效果 */
+    display: inline-flex; /* 使用内联弹性盒子 */
+    justify-content: center; /* 水平居中内容 */
+    align-items: center; /* 垂直居中内容 */
+}
+
+.toolkit-button:active {
+    transform: scale(0.95); /* 点击时轻微缩小按钮 */
+}
+
+/* 更新后的 toolkit-button img 样式 */
+.toolkit-button img {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* 添加阴影以制造立体感 */
+    border-radius: 10px; /* 添加边框半径产生圆角 */
+    transition: all 0.2s ease; /* 平滑过渡效果 */
+}
+
+.toolkit-button:hover img {
+    opacity: 0.7; /* 悬停时使图像稍微透明 */
+    transform: translateY(-2px); /* 轻微向上移动以产生悬浮效果 */
+}
+
+
+.tool-selector {
+    /* 工具选择器容器的样式 */
+    display: flex;
+    justify-content: center; /* 按钮居中对齐 */
+    align-items: center;
+    gap: 10px; /* 按钮之间的间隙 */
+    padding: 10px;
+    background-color: #F2FCF2; /* 乳白色背景 */
+}
+
+.tool-selector .tool-button {
+    /* 按钮的基础样式 */
+    padding: 10px 15px;
+    font-size: 16px; /* 文字大小 */
+    font-weight: bold; /* 字体加粗 */
+    color: #333; /* 文字颜色 */
+    background-color: #F5E7E5; /* 按钮背景色 */
+    border: 1px solid #F2FCF2; /* 边框 */
+    border-radius: 10px; /* 圆角边框 */
+    cursor: pointer; /* 鼠标悬浮时的手型光标 */
+    transition: background-color 0.3s, transform 0.3s; /* 过渡效果 */
+}
+
+.tool-selector .tool-button:hover {
+    /* 鼠标悬浮时按钮的样式 */
+    background-color: #eaeaea; /* 按钮悬浮背景色 */
+    transform: translateY(-2px); /* 轻微上移 */
+}
+
+.tool-selector .tool-button:active {
+    /* 鼠标点击时按钮的样式 */
+    transform: translateY(1px); /* 轻微下移 */
+}
 /* .App {
   text-align: center;
 }

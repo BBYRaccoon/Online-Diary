@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        Header
+          DreamWeave Journal
       </header>
       <div className='APP-content'>
         <Routes>

@@ -6,8 +6,9 @@ import { stickersData } from "data/Images";
 import { Sticker } from "components/partials/ToolComponents/Sticker/Sticker";
 
 function Designer() {
-    const [image] = useImage("/diary_bg.png");
     const toolTypes = { sticker: 'sticker', customizedSticker: 'customize', text: 'text'};
+    const [image] = useImage("/Frame 1.png");
+
     const addStickerToCanvas = ({ src, width, height, x, y}) => {
       setSticers((currentStickers) => [
         ...currentStickers,
@@ -58,10 +59,10 @@ function Designer() {
     return (
         <>
           <div className="designer-container">
-            Designer Page
-            <Stage width={1500} height={750} onClick={handleCanvasClick}>
+              <h2>Start your own journey.</h2> {/* Wrap the text in a <h2> tag for styling */}
+            <Stage width={1800} height={1000} onClick={handleCanvasClick}>
                 <Layer>
-                    <KonvaImage image={image} id="bg-image"></KonvaImage>
+                    <KonvaImage image={image} id="bg-image" x={90} />
                     {stickers.map((sticker, index) => {
                       return (
                         <Sticker 
@@ -82,17 +83,23 @@ function Designer() {
                 </Layer>
             </Stage>
           </div>
-          <div className="tool-selector">
-            Tools Controller
-            {Object.keys(toolTypes).map((k, index) => (
-              <button key={`tool-${index}`} onClick={() => {
-                setCurrentTool(toolTypes[k]);
-                setToolConfig(toolConfigs[currentTool]);
-              }}>{toolTypes[k]}</button>
-            ))}
-          </div>
-          <div className="toolkits-container">
-            Toolkits
+            <div className="tool-selector">
+                Tools Controller
+                {Object.keys(toolTypes).map((k, index) => (
+                    <button
+                        key={`tool-${index}`}
+                        className="tool-button" // 添加类名
+                        onClick={() => {
+                            setCurrentTool(toolTypes[k]);
+                            setToolConfig(toolConfigs[currentTool]);
+                        }}
+                    >
+                        {toolTypes[k]}
+                    </button>
+                ))}
+            </div>
+
+            <div className="toolkits-container">
             <Toolkits {...toolConfig}></Toolkits>
           </div>
         </>
