@@ -1,5 +1,5 @@
 import React, { useState, createRef, useCallback, useEffect } from "react";
-import { Image as KonvaImage, Layer, Stage } from 'react-konva';
+import { Image as KonvaImage, Layer, Stage, Text } from 'react-konva';
 import useImage from 'use-image';
 import Toolkits from "components/partials/Toolkits/Toolkits";
 import { stickersData } from "data/Images";
@@ -62,7 +62,7 @@ function Designer() {
 
     const [textInput, setTextInput] = useState({
       isVisible: false,
-      value: 'Input text',
+      value: '',
       x: 200,
       y: 200,
     });
@@ -125,6 +125,25 @@ function Designer() {
                 <Layer>
                     <KonvaImage image={image} id="bg-image" x={300} />
                     {stickers.map((sticker, index) => {
+                      if (sticker.type === 'text') {
+                        return (
+                          <Text
+                            fontSize={40}
+                            fontFamily={"Work Sans"}
+                            fill={"#333A73"}
+                            key={index}
+                            text={sticker.text}
+                            x={sticker.x}
+                            y={sticker.y}
+                            draggable
+                            onDragEnd={(e) => {
+                              const updatedStickers = stickers.slice();
+                              updatedStickers[index] = { ...updatedStickers[index], x: e.target.x(), y: e.target.y() };
+                              setStickers(updatedStickers);
+                            }}
+                          />
+                        );
+                      }
                       return (
                         <Sticker 
                           onDelete={() => {
@@ -161,6 +180,8 @@ function Designer() {
                 }}
               >
                 <input
+                  placeholder="Enter your text..."
+                  className="input-box"
                   type="text"
                   value={textInput.value}
                   onChange={(e) => setTextInput({ ...textInput, value: e.target.value })}
