@@ -56,17 +56,19 @@ function CustomizeCanvas({ open, handleClose }){
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-        <Box className="modal-style">
-            <select
-                value={tool}
-                onChange={(e) => {
-                setTool(e.target.value);
-                }}
-            >
-                <option value="pen">Pen</option>
-                <option value="eraser">Eraser</option>
-            </select>
-            <button onClick={handleSave}>Save Drawing</button>
+        <Box className="modal-style tool-selector flex">
+            <Box className="flex-row">
+                <select  className="tool-button" 
+                    value={tool}
+                    onChange={(e) => {
+                    setTool(e.target.value);
+                    }}
+                >
+                    <option value="pen">Pen</option>
+                    <option value="eraser">Eraser</option>
+                </select>
+                <button className="tool-button" onClick={handleSave}>Save Drawing</button>
+            </Box>
             <Stage
                 width={700}
                 height={500}
@@ -76,7 +78,6 @@ function CustomizeCanvas({ open, handleClose }){
                 ref={stageRef}
             >
                 <Layer>
-                <Text text="Just start drawing" x={5} y={30} />
                 {lines.map((line, i) => (
                     <Line
                     key={i}
