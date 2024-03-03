@@ -1,5 +1,5 @@
-import React, { useState, createRef, useCallback, useEffect, useMemo } from "react";
-import { Image as KonvaImage, Layer, Stage, Text } from 'react-konva';
+import React, { useState, createRef, useCallback, useEffect } from "react";
+import { Image as KonvaImage, Layer, Stage } from 'react-konva';
 import useImage from 'use-image';
 import Toolkits from "components/partials/Toolkits/Toolkits";
 import { stickersData } from "data/Images";
@@ -26,8 +26,8 @@ function Designer() {
         {
           text: text,
           isText: true,
-          width: 30,
-          height: 30,
+          width: 15,
+          height: 15,
           x: 200,
           y: 200
         }
@@ -65,8 +65,6 @@ function Designer() {
       x: 200,
       y: 200,
     });
-    const [dragging, setDragging] = useState(false);
-    const [offset, setOffset] = useState({ x: 0, y: 0 });
 
     const handleCustomizeSelect = () => {
       setCurrentTool(toolTypes.customizedSticker);
@@ -77,28 +75,6 @@ function Designer() {
     const handleCloseModal = () => {
       setOpenModal(false);
     }
-
-    const startDrag = (e) => {
-      setDragging(true);
-      setOffset({
-        x: e.clientX - textInput.x,
-        y: e.clientY - textInput.y,
-      });
-    };
-
-    const onDrag = useCallback((e) => {
-      if (dragging) {
-        setTextInput((prevTextInput) => ({
-          ...prevTextInput,
-          x: e.clientX - offset.x,
-          y: e.clientY - offset.y,
-        }));
-      }
-    }, [dragging, offset.x, offset.y]);
-
-    const endDrag = () => {
-      setDragging(false);
-    };
 
     const handleKeyPress = (e) => {
       if (e.key === 'Enter') {
@@ -111,15 +87,8 @@ function Designer() {
     };
     
     useEffect(() => {
-      if (dragging) {
-        document.addEventListener('mousemove', onDrag);
-        document.addEventListener('mouseup', endDrag);
-        return () => {
-          document.removeEventListener('mousemove', onDrag);
-          document.removeEventListener('mouseup', endDrag);
-        };
-      }
-    }, [dragging, onDrag]);
+      setToolConfig(toolConfigs[currentTool]);
+    }, [currentTool, textData]);
     
     const handleTextToolSelect = () => {
       setCurrentTool(toolTypes.text);
@@ -151,22 +120,6 @@ function Designer() {
                 <Layer>
                     <KonvaImage image={image} id="bg-image" x={300} />
                     {stickers.map((sticker, index) => {
-                      // if (sticker.type === 'text') {
-                      //   return (
-                      //     <Text
-                      //       key={index}
-                      //       text={sticker.text}
-                      //       x={sticker.x}
-                      //       y={sticker.y}
-                      //       draggable
-                      //       onDragEnd={(e) => {
-                      //         const updatedStickers = stickers.slice();
-                      //         updatedStickers[index] = { ...updatedStickers[index], x: e.target.x(), y: e.target.y() };
-                      //         setStickers(updatedStickers);
-                      //       }}
-                      //     />
-                      //   );
-                      // }
                       return (
                         <Sticker 
                           onDelete={() => {
@@ -201,7 +154,6 @@ function Designer() {
                   left: textInput.x,
                   zIndex: 100,
                 }}
-                onMouseDown={startDrag}
               >
                 <input
                   type="text"
