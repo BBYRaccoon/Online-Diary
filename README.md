@@ -2,6 +2,10 @@
 
 2024 System Chaos Hackaton
 
+![result](https://github.com/BBYRaccoon/Online-Diary/blob/main/diary_drawing_demo2.jpeg)
+
+![result](https://github.com/BBYRaccoon/Online-Diary/blob/main/diary_drawing_demo.png)
+
 ## Inspiration
 
 In daily life, people always "shout at" Chaos and try to avoid it. However, chaos is not a monster that we should get afraid of. We treat chaos as the spring of inspiration. In the world of art, chaos could be a masterpiece. That's our initiate to develop this online diary designer, which enable people to express with freedom and create their own arts.
