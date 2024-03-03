@@ -4,7 +4,7 @@ import useImage from 'use-image';
 import Toolkits from "components/partials/Toolkits/Toolkits";
 import { stickersData } from "data/Images";
 import { Sticker } from "components/partials/ToolComponents/Sticker/Sticker";
-import CustomizeCanvas from "components/partials/ToolComponents/CustomizeStickerCanvas/CustomizeCanvas";
+import CustomizeCanvas from "components/partials/CustomizeCanvas/CustomizeCanvas";
 
 function Designer() {
     const toolTypes = { sticker: 'sticker', customizedSticker: 'customize', text: 'text'};
@@ -47,6 +47,7 @@ function Designer() {
         objType: toolTypes.customizedSticker,
         callBack: addStickerToCanvas
       },
+      
       'text': {
         objs: textData,
         objType: toolTypes.text,
@@ -114,6 +115,10 @@ function Designer() {
 
     return (
         <>
+          {/* <div className="toolkits-container">
+            Toolkits
+            <Toolkits objs={stickersData} objType={"imgButton"} callBack={addStickerToCanvas}></Toolkits>
+          </div> */}
           <div className="designer-container">
               <h2>Start your own journey.</h2> {/* Wrap the text in a <h2> tag for styling */}
             <Stage width={1800} height={1000} onClick={handleCanvasClick}>
