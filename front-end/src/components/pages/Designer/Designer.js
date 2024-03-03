@@ -125,25 +125,6 @@ function Designer() {
                 <Layer>
                     <KonvaImage image={image} id="bg-image" x={300} />
                     {stickers.map((sticker, index) => {
-                      if (sticker.type === 'text') {
-                        return (
-                          <Text
-                            fontSize={40}
-                            fontFamily={"Work Sans"}
-                            fill={"#333A73"}
-                            key={index}
-                            text={sticker.text}
-                            x={sticker.x}
-                            y={sticker.y}
-                            draggable
-                            onDragEnd={(e) => {
-                              const updatedStickers = stickers.slice();
-                              updatedStickers[index] = { ...updatedStickers[index], x: e.target.x(), y: e.target.y() };
-                              setStickers(updatedStickers);
-                            }}
-                          />
-                        );
-                      }
                       return (
                         <Sticker 
                           onDelete={() => {

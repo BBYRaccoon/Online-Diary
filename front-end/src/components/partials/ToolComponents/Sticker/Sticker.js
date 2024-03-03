@@ -101,7 +101,7 @@ export const Sticker = ({ image, onDelete, onDragEnd, onChange }) => {
             height={stickerHeight}
             onClick={()=>setIsSelected(true)}
             onTransformEnd={onTransformEndcallback}/>
-          <Text text={image.text} align="center" rotation={image.rotation}></Text>
+          <Text fontSize={40} fontFamily={"Work Sans"} fill={"#333A73"} text={image.text} align="center" rotation={image.rotation}></Text>
         </>
       )}
       {showDeleteButton && !isDragging && (
